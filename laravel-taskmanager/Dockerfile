@@ -35,6 +35,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy the existing application directory contents to the working directory
 COPY . /var/www
 
+RUN composer install --no-dev --optimize-autoloader
+
 # Copy the existing application directory permissions to the working directory
 COPY --chown=www-data:www-data . /var/www
 

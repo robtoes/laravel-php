@@ -18,6 +18,10 @@ const NavBar = () => {
   
   const token = localStorage.getItem('token');
 
+  if(token==null){
+    localStorage.setItem('token', "");
+  }
+
   const lengthToken = token.length > 20 ? token.length  : 0;
 
   const toggleMenu = () => {
