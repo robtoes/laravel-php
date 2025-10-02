@@ -75,7 +75,7 @@ Sistema completo de gestión de tareas con autenticación JWT, desarrollado con 
 │                 │         │                  │         │             │
 │   React + Vite  │────────▶│  Laravel API     │────────▶│    MySQL    │
 │   (Frontend)    │  HTTP   │  (Backend)       │   SQL   │   (DB)      │
-│   Port: 3000    │         │  Port: 8000      │         │ Port: 3306  │
+│   Port: 5000    │         │  Port: 8080      │         │ Port: 3306  │
 │                 │         │                  │         │             │
 └─────────────────┘         └──────────────────┘         └─────────────┘
         │                            │
@@ -113,14 +113,14 @@ docker-compose --version
 ### 1. Clonar el Repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/taskapp.git
-cd taskapp
+git clone https://github.com/robtoes/laravel-php.git
+cd laravel-php
 ```
 
 ### 2. Configuración del Frontend
 
 ```bash
-cd frontend
+cd front-darient
 
 # Instalar dependencias
 npm install
@@ -141,7 +141,7 @@ VITE_APP_NAME=TaskApp
 ### 3. Configuración del Backend
 
 ```bash
-cd ../backend
+cd ../laravel-taskmanager
 
 # Instalar dependencias
 composer install
@@ -232,7 +232,7 @@ proyecto/
 
 ### Paso 1: Crear Dockerfile del front-darient
 
-**Archivo: `frontend/Dockerfile`**
+**Archivo: `front-darient/Dockerfile`**
 
 ```dockerfile
 FROM node:18-alpine AS builder
@@ -285,7 +285,7 @@ server {
 
 ### Paso 3: Crear Dockerfile del laravel-taskmanager
 
-**Archivo: `backend/Dockerfile`**
+**Archivo: `laravel-taskmanager/Dockerfile`**
 
 ```dockerfile
 # Use the official PHP image as a base image
@@ -514,7 +514,7 @@ docker stats
 
 #### Frontend
 ```bash
-cd frontend
+cd front-darient
 npm install
 npm run dev
 # Abre: http://localhost:5173
@@ -522,10 +522,10 @@ npm run dev
 
 #### Backend
 ```bash
-cd backend
+cd laravel-taskmanager
 composer install
 php artisan serve
-# Abre: http://localhost:8000
+# Abre: http://localhost:8080
 ```
 
 ## 📡 API Endpoints
@@ -543,10 +543,10 @@ php artisan serve
 
 | Método | Endpoint | Descripción | Auth |
 |--------|----------|-------------|------|
-| GET | `/api/tasks?page=1&per_page=9` | Listar tareas | Sí |
-| POST | `/api/tasks` | Crear tarea | Sí |
-| GET | `/api/tasks/{id}` | Ver tarea | Sí |
-| PUT | `/api/tasks/{id}` | Actualizar tarea | Sí |
+| GET | `/api/tasks`      | Listar tareas | Sí |
+| POST | `/api/tasks`     | Crear tarea | Sí |
+| GET | `/api/tasks/detail/{id}` | Ver tarea | Sí |
+| POST | `/api/tasks/update/{id}` | Actualizar tarea | Sí |
 | DELETE | `/api/tasks/{id}` | Eliminar tarea | Sí |
 | GET | `/api/tasks/stats` | Estadísticas | Sí |
 
@@ -572,7 +572,7 @@ curl -X POST http://localhost:8080/api/tasks \
   -H "Content-Type: application/json" \
   -d '{"titulo":"Mi tarea","descripcion":"Descripción"}'
 
-# Listar tareas con paginación
+# Listar tareas
 curl -H "Authorization: Bearer YOUR_TOKEN" \
   http://localhost:8080/api/tasks
 ```
